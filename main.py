@@ -1,14 +1,15 @@
-import pandas as pd
-import numpy as np
 from normalizado import NORMALIZA
 from kfold import KFOLD
 from knn import KNN
-
+from kmeans import KMEANS
+from rna import RNA
 menu_options = {
     1: 'Mostrar Dataframe normalizado',
     2: 'Mostrar K-Folds',
     3: 'Knn',
-    4: 'Exit',
+    4: 'RNA',
+    5: 'k-Means',
+    6: 'Exit',
 }
 
 def print_menu():
@@ -17,19 +18,35 @@ def print_menu():
 
 
 def opcion1(df_norm):
-    print('DATAFRAME NORMALIZADO\n')
+    print('\nDATAFRAME NORMALIZADO\n')
     print(df_norm)
     print('\n')
 
 
 def opcion2(folds):
-    print('FOLDS DE PRUEBA Y ENTRENAMIENDO\n')
+    print('\nFOLDS DE PRUEBA Y ENTRENAMIENDO\n')
     print(folds)
     print('\n')
 
 
-def opcion3():
-     print('Handle option \'Option 3\'')
+def opcion3(k):
+    print('\nESTADISTICAS DE RENDIMIENTO KNN\n')
+    a = KNN(k)
+    print(a)
+    print('\n')
+
+
+def opcion4(k):
+    print('\nCREANDO ARCHIVO DE TIPO EXCEL CON SALIDAS Y ERROR DE RNA PASO HACIA ADELANTE\n')
+    a = RNA(k)
+    print(a)
+
+def opcion5():
+    print('\nPORCENTAJE DE PATRONES QUE QUEDARON AGRUPADOS CORRECTAMENTE\n')
+    print("Cluster0[1,0]  Cluster1[1,0]")
+    a = KMEANS()
+    print(a)
+
 
 if __name__=='__main__':
     new_df = NORMALIZA()
@@ -53,17 +70,15 @@ if __name__=='__main__':
             else: 
                 print("Valor no aceptado")
         elif option == 4:
+            k = int(input("1 -- Sigmoide\n2 -- Rampa\nEliga la funcion de activacion: "))
+            if k == 1 or k == 2:
+                opcion4(k)
+            else: 
+                print("Valor no aceptado")
+        elif option == 5:
+            opcion5()
+        elif option ==6:  
             print('Gracias, hasta luego.')
-            exit()
+            exit()             
         else:
             print('Opcion invalida, por favor elija un número entero entre el 1 al 4.')
-
-
-
-"""if __name__ == "__main__":
-    seguir = True
-    new_df = NORMALIZA()
-    while seguir:
-        #k = int(input("Ingrese el valor de k: "))
-
-        seguir = input("¿Desea seguir? (s/n): ") == "s"""
